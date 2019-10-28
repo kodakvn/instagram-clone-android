@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android1="http://schemas.android.com/apk/res/android"
+    android1:layout_width="match_parent"
+    android1:layout_height="match_parent">
+
+    <TextView
+        android1:layout_width="wrap_content"
+        android1:layout_height="wrap_content"
+        android1:text="Home fragment"
+        android1:layout_centerHorizontal="true"
+        android1:layout_marginTop="50dp"
+        android1:textSize="20sp"
+        />
+
+</RelativeLayout>
