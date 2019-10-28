@@ -1,11 +1,14 @@
 package com.example.instagramclone.home;
 
 import android.content.Context;
+import android.support.design.widget.TabLayout;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.ViewParent;
 
 import com.example.instagramclone.R;
 import com.example.instagramclone.utils.BottomNavigationViewHelper;
@@ -23,6 +26,23 @@ public class HomeActivity extends AppCompatActivity {
 		setContentView(R.layout.activity_home);
 		Log.d(TAG, "onCreate start");
 		setupBottomNavigationView();
+		setupViewPager();
+	}
+
+	private void setupViewPager() {
+		SectionPagerAdapter adapter = new SectionPagerAdapter(getSupportFragmentManager());
+		adapter.addFragment(new CameraFragment());
+		adapter.addFragment(new HomeFragment());
+		adapter.addFragment(new MessagesFragment());
+		ViewPager viewPager = (ViewPager) findViewById(R.id.container);
+		viewPager.setAdapter(adapter);
+
+		TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
+		tabLayout.setupWithViewPager(viewPager);
+
+		tabLayout.getTabAt(0).setIcon(R.drawable.ic_camera);
+		tabLayout.getTabAt(1).setIcon(R.drawable.ic_instagram);
+		tabLayout.getTabAt(2).setIcon(R.drawable.ic_arrow);
 	}
 
 	private void setupBottomNavigationView() {
