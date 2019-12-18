@@ -1,7 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<android.support.design.widget.CoordinatorLayout
     xmlns:android1="http://schemas.android.com/apk/res/android"
     android1:layout_width="match_parent"
     android1:layout_height="match_parent">
 
-</RelativeLayout>
+    <RelativeLayout
+        android1:layout_width="match_parent"
+        android1:layout_height="match_parent">
+
+        <RelativeLayout
+            android1:layout_width="match_parent"
+            android1:layout_height="wrap_content"
+            android1:id="@+id/relLayout1">
+
+            <include layout="@layout/snippet_top_edit_profile_toolbar"/>
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android1:layout_width="match_parent"
+            android1:layout_height="wrap_content"
+            android1:layout_below="@id/relLayout1"
+            android1:id="@+id/relLayout2">
+
+        </RelativeLayout>
+
+    </RelativeLayout>
+
+</android.support.design.widget.CoordinatorLayout>
