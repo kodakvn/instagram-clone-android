@@ -25,16 +25,17 @@ public class EditProfileFragment extends Fragment {
 
         mProfilePhoto = (ImageView) view.findViewById(R.id.profile_photo);
 
-        initImageLoader();
         setProfileImage();
+
+        ImageView backArrow = (ImageView) view.findViewById(R.id.backArrow);
+        backArrow.setOnClickListener(new View.OnClickListener() {
+			@Override public void onClick(View v) {
+				getActivity().finish();
+			}
+		});
 
         return view;
     }
-
-    private void initImageLoader() {
-    	UniversalImageLoader loader = new UniversalImageLoader(getActivity());
-		ImageLoader.getInstance().init(loader.getCongiguration());
-	}
 
     private void setProfileImage() {
 		 String imageUrl = "crackberry.com/sites/crackberry.com/files/topic_images/2013/ANDROID.png";
