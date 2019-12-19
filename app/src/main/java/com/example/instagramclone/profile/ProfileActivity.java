@@ -26,6 +26,7 @@ import java.util.ArrayList;
 public class ProfileActivity extends AppCompatActivity {
 	private static final String TAG = "ProfileActivity";
 	private static final int ACTIVITY_NUM = 4;
+	private static final int NUM_GRID_COLUMNS = 3;
 	private Context mContext = ProfileActivity.this;
 	private ProgressBar mProgressBar;
 	private ImageView profilePhoto;
@@ -46,15 +47,25 @@ public class ProfileActivity extends AppCompatActivity {
 
 	private void tempGridSetup() {
 		ArrayList<String> imgUrls = new ArrayList<>();
-		String url = "https://crackberry.com/sites/crackberry.com/files/topic_images/2013/ANDROID.png";
-		for (int i=0; i<10; i++) {
-			imgUrls.add(url);
-		}
+		imgUrls.add("https://figuya.com/uploads/product/profile_picture/16691/profile_dragon-ball-super-handtuch-super-saiyajin-god-super-saiyajin-son-goku-150-x-75-cm20190808-19143-53pua7.jpeg");
+		imgUrls.add("https://imgix.ranker.com/user_node_img/50088/1001748303/original/the-turtle-hermit-way-photo-u1?w=650&q=50&fm=pjpg&fit=crop&crop=faces");
+		imgUrls.add("https://genknews.genkcdn.vn/2016/1-1481709438862.jpg");
+		imgUrls.add("https://i.pinimg.com/originals/05/c7/b4/05c7b4dd8f2247bf7275ebdd2037cc55.jpg");
+		imgUrls.add("https://vignette.wikia.nocookie.net/dragonball/images/6/6b/Tien_DBZ_Ep_152_003.png/revision/latest?cb=20170915030720");
+		imgUrls.add("https://sohanews.sohacdn.com/thumb_w/660/2015/6-nhung-su-that-la-lung-ve-dai-ma-vuong-piccolo-trong-dragon-ball-1438689552530-0-0-459-625-crop-1438689637827.png");
+		imgUrls.add("https://vignette.wikia.nocookie.net/dragonballzuniverse/images/5/5e/Gohan%2C_the_dude.jpg/revision/latest?cb=20190316033742");
+		imgUrls.add("https://res.cloudinary.com/teepublic/image/private/s--tnFsD4Di--/t_Resized%20Artwork/c_fit,g_north_west,h_1054,w_1054/co_ffffff,e_outline:53/co_ffffff,e_outline:inner_fill:53/co_bbbbbb,e_outline:3:1000/c_mpad,g_center,h_1260,w_1260/b_rgb:eeeeee/c_limit,f_jpg,h_630,q_90,w_630/v1517039721/production/designs/2313221_0.jpg");
+		imgUrls.add("https://genknews.genkcdn.vn/2019/4/8/photo-1-155471685422440588926.jpg");
 		setupImageGrid(imgUrls);
 	}
 
 	private void setupImageGrid(ArrayList<String> urls) {
 		GridView gridView = (GridView) findViewById(R.id.gridView);
+
+		int gridWidth = getResources().getDisplayMetrics().widthPixels;
+		int imageWidth = gridWidth / NUM_GRID_COLUMNS;
+		gridView.setColumnWidth(imageWidth);
+
 		GridImageAdapter adapter = new GridImageAdapter(mContext, R.layout.layout_grid_imageview, "", urls);
 		gridView.setAdapter(adapter);
 	}
