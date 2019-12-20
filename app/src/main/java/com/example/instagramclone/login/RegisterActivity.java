@@ -16,6 +16,7 @@ import android.widget.Toast;
 import com.example.instagramclone.R;
 import com.example.instagramclone.home.HomeActivity;
 import com.example.instagramclone.utils.BottomNavigationViewHelper;
+import com.example.instagramclone.utils.FirebaseMethods;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -32,6 +33,7 @@ public class RegisterActivity extends AppCompatActivity {
 
 	private FirebaseAuth mAuth;
 	private FirebaseAuth.AuthStateListener mAuthListener;
+	private FirebaseMethods firebaseMethods;
 
 	private Context mContext;
 	private String email, username, password;
@@ -43,10 +45,39 @@ public class RegisterActivity extends AppCompatActivity {
 	@Override protected void onCreate(@Nullable Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_register);
+		mContext = RegisterActivity.this;
+		firebaseMethods = new FirebaseMethods(mContext);
 		Log.d(TAG, "onCreate start");
 
 		initWidgets();
 		setupFirebaseAuth();
+		init();
+	}
+
+	private void init() {
+		btnRegister.setOnClickListener(new View.OnClickListener() {
+			@Override public void onClick(View v) {
+				email = mEmail.getText().toString();
+				username = mUsername.getText().toString();
+				password = mPassword.getText().toString();
+
+				if (checkInputs(email, username, password)) {
+					mProgressBar.setVisibility(View.VISIBLE);
+					loadingPleaseWait.setVisibility(View.VISIBLE);
+
+					firebaseMethods.registerNewEmail(email, password, username);
+				}
+			}
+		});
+	}
+
+	private boolean checkInputs(String email, String username, String password) {
+		if (isStringNull(email) || isStringNull(username) || isStringNull(password)) {
+			Toast.makeText(mContext, "All fields must be filled out", Toast.LENGTH_SHORT).show();
+			return false;
+		} else {
+			return true;
+		}
 	}
 
 	private void initWidgets() {
@@ -55,7 +86,7 @@ public class RegisterActivity extends AppCompatActivity {
 		mEmail = (EditText) findViewById(R.id.input_email);
 		mPassword = (EditText) findViewById(R.id.input_password);
 		mUsername = (EditText) findViewById(R.id.input_username);
-		mContext = RegisterActivity.this;
+		btnRegister = (Button) findViewById(R.id.register_button);
 
 		mProgressBar.setVisibility(View.GONE);
 		loadingPleaseWait.setVisibility(View.GONE);
