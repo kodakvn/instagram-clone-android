@@ -16,6 +16,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.instagramclone.R;
+import com.example.instagramclone.home.HomeActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -96,6 +97,20 @@ public class LoginActivity extends AppCompatActivity {
 				}
 			}
 		});
+
+		TextView linkSignUp = (TextView) findViewById(R.id.link_signup);
+		linkSignUp.setOnClickListener(new View.OnClickListener() {
+			@Override public void onClick(View v) {
+				Intent intent = new Intent(LoginActivity.this, RegisterActivity.class);
+				startActivity(intent);
+			}
+		});
+
+		if (mAuth.getCurrentUser() != null) {
+			Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
+			startActivity(intent);
+			finish();
+		}
 	}
 
 	@Override

@@ -24,6 +24,7 @@
         <activity android:name=".search.SearchActivity"></activity>
         <activity android:name=".share.ShareActivity"></activity>
         <activity android:name=".login.LoginActivity"></activity>
+        <activity android:name=".login.RegisterActivity"></activity>
     </application>
 
 </manifest>
