@@ -2,9 +2,9 @@ package com.example.instagramclone.utils;
 
 import android.content.Context;
 import android.content.Intent;
-import android.support.annotation.NonNull;
-import android.support.design.widget.BottomNavigationView;
 import android.view.MenuItem;
+
+import androidx.annotation.NonNull;
 
 import com.example.instagramclone.home.HomeActivity;
 import com.example.instagramclone.likes.LikesActivity;
@@ -12,6 +12,7 @@ import com.example.instagramclone.profile.ProfileActivity;
 import com.example.instagramclone.R;
 import com.example.instagramclone.search.SearchActivity;
 import com.example.instagramclone.share.ShareActivity;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.ittianyu.bottomnavigationviewex.BottomNavigationViewEx;
 
 public class BottomNavigationViewHelper {
