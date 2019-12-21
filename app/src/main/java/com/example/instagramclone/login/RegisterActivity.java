@@ -40,7 +40,7 @@ public class RegisterActivity extends AppCompatActivity {
 	private FirebaseAuth.AuthStateListener mAuthListener;
 	private FirebaseMethods firebaseMethods;
 	private FirebaseDatabase mFirebaseDatabase;
-	private DatabaseReference myRef;
+//	private DatabaseReference myRef;
 
 	private Context mContext;
 	private String email, username, password;
@@ -128,7 +128,7 @@ public class RegisterActivity extends AppCompatActivity {
 	private void setupFirebaseAuth() {
 		mAuth = FirebaseAuth.getInstance();
 		mFirebaseDatabase = FirebaseDatabase.getInstance();
-		myRef = mFirebaseDatabase.getReference();
+//		myRef = mFirebaseDatabase.getReference();
 
 		mAuthListener = new FirebaseAuth.AuthStateListener() {
 			@Override
@@ -136,26 +136,30 @@ public class RegisterActivity extends AppCompatActivity {
 				final FirebaseUser user = firebaseAuth.getCurrentUser();
 
 				if (user != null) {
-					myRef.addListenerForSingleValueEvent(new ValueEventListener() {
-						@Override
-						public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-							// 1: make sure username is not already in use
-							if (firebaseMethods.checkIfUsernameExists(username, dataSnapshot)) {
-								append = myRef.push().getKey().substring(3, 10);
-								Log.d(TAG, "username existed, append random string " + append);
-							}
-							username = username + append;
-
-							// 2: add new user to db
-
-							// 3: add new user_account_settings to db
-						}
-
-						@Override
-						public void onCancelled(@NonNull DatabaseError databaseError) {
-
-						}
-					});
+					Log.d("kkk", "on auth state changed " + mFirebaseDatabase.getReference().getKey());
+//					mFirebaseDatabase.getReference().addListenerForSingleValueEvent(new ValueEventListener() {
+//						@Override
+//						public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+//							Log.d("kkk", "on data change");
+//							// 1: make sure username is not already in use
+//							if (firebaseMethods.checkIfUsernameExists(username, dataSnapshot)) {
+//								append = mFirebaseDatabase.getReference().push().getKey().substring(3, 10);
+//								Log.d(TAG, "username existed, append random string " + append);
+//							}
+//							username = username + append;
+//
+//							// 2: add new user to db
+//							firebaseMethods.addNewUser(email, username, "this is description", "https://www.google.com", "");
+//							Toast.makeText(mContext, "Sign up successfully. Sending verification email", Toast.LENGTH_SHORT).show();
+//
+//							// 3: add new user_account_settings to db
+//						}
+//
+//						@Override
+//						public void onCancelled(@NonNull DatabaseError databaseError) {
+//							Log.d("kkk", "on data cancel");
+//						}
+//					});
 				} else {
 
 				}
