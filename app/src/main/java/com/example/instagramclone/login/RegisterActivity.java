@@ -22,6 +22,11 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.ittianyu.bottomnavigationviewex.BottomNavigationViewEx;
 
 import androidx.annotation.NonNull;
@@ -34,6 +39,8 @@ public class RegisterActivity extends AppCompatActivity {
 	private FirebaseAuth mAuth;
 	private FirebaseAuth.AuthStateListener mAuthListener;
 	private FirebaseMethods firebaseMethods;
+	private FirebaseDatabase mFirebaseDatabase;
+	private DatabaseReference myRef;
 
 	private Context mContext;
 	private String email, username, password;
@@ -41,6 +48,8 @@ public class RegisterActivity extends AppCompatActivity {
 	private TextView loadingPleaseWait;
 	private Button btnRegister;
 	private ProgressBar mProgressBar;
+
+	private String append;
 
 	@Override protected void onCreate(@Nullable Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -118,10 +127,38 @@ public class RegisterActivity extends AppCompatActivity {
 
 	private void setupFirebaseAuth() {
 		mAuth = FirebaseAuth.getInstance();
+		mFirebaseDatabase = FirebaseDatabase.getInstance();
+		myRef = mFirebaseDatabase.getReference();
+
 		mAuthListener = new FirebaseAuth.AuthStateListener() {
 			@Override
 			public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-				FirebaseUser user = firebaseAuth.getCurrentUser();
+				final FirebaseUser user = firebaseAuth.getCurrentUser();
+
+				if (user != null) {
+					myRef.addListenerForSingleValueEvent(new ValueEventListener() {
+						@Override
+						public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+							// 1: make sure username is not already in use
+							if (firebaseMethods.checkIfUsernameExists(username, dataSnapshot)) {
+								append = myRef.push().getKey().substring(3, 10);
+								Log.d(TAG, "username existed, append random string " + append);
+							}
+							username = username + append;
+
+							// 2: add new user to db
+
+							// 3: add new user_account_settings to db
+						}
+
+						@Override
+						public void onCancelled(@NonNull DatabaseError databaseError) {
+
+						}
+					});
+				} else {
+
+				}
 			}
 		};
 
